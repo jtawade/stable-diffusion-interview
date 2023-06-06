@@ -7,6 +7,12 @@ from tqdm import tqdm
 from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, make_ddim_timesteps, noise_like, extract_into_tensor
 
 
+def print_buffer_info(module):
+    print("Here are some of the buffers that you might find helpful:")
+    for buffer_name, buffer_tensor in module.named_buffers:
+        print("-", buffer_name, "shape:", buffer_tensor.shape "| dtype:", buffer_tensor.dtype)
+
+
 class DDIMSampler(object):
     def __init__(self, model, schedule="linear", device=torch.device("cuda"), **kwargs):
         super().__init__()
@@ -215,7 +221,18 @@ class DDIMSampler(object):
         x_prev = None
         pred_x0 = None
 
-        # TODO: <Complete the DDIM sampling step>
+        ### TODO: BEGIN YOUR CODE ###
+
+        # Some helpful input shapes and dtypes
+        # x ( torch.FloatTensor ) : shape=(b, c, h, w)
+        # t ( torch.LongTensor )  : shape=(b,)
+
+        # This will print the shapes of some buffers that correspond to variables
+        # in the noise schedule, which may be helpful to your implementation
+        print_buffer_info(self)  # comment this out when you're done
+        breakpoint()
+
+        ### END OF YOUR CODE ###
 
         return x_prev, pred_x0
 
