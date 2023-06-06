@@ -228,14 +228,16 @@ class DDIMSampler(object):
         ### TODO: BEGIN YOUR CODE ###
 
         # Here are the inputs that you may find helpful
-        # x     : the current sample at this time in the denoising process
-        # t     : the current timestamp value in [0, 1) that dictates the signal-to-noise ratio
-        # index : the current timestamp index that `t` corresponds to (i.e. t := t_schedule[index])
+        # x             : the current sample at this time in the denoising process
+        # t             : the current timestamp value in [0, 1) that dictates the signal-to-noise ratio
+        # index         : the current timestamp index that `t` corresponds to (i.e. t := t_schedule[index])
+        # model_output  : the predicted noise outputted by the diffusion model UNet 
 
         # Here is some helpful information about the inputs
-        # x ( torch.FloatTensor ) : shape=(b, c, h, w)
-        # t ( torch.FloatTensor ) : shape=(b,)
-        # index ( int )           : shape=(,)
+        # x ( torch.FloatTensor )               : shape=(b, c, h, w)
+        # t ( torch.FloatTensor )               : shape=(b,)
+        # index ( int )                         : shape=(,)
+        # model_output ( torch.FloatTensor )    : shape=(b, c, h, w)
 
         # This will print the shapes of some buffers that correspond to variables
         # in the noise schedule, which may be helpful to your implementation
