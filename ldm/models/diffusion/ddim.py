@@ -9,8 +9,9 @@ from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, mak
 
 def print_buffer_info(module):
     print("Here are some of the buffers that you might find helpful:")
-    for buffer_name, buffer_tensor in module.named_buffers:
-        print("-", buffer_name, "shape:", buffer_tensor.shape "| dtype:", buffer_tensor.dtype)
+    for buffer_name, buffer_tensor in vars(module).items():
+        if isinstance(buffer_tensor, torch.Tensor):
+            print("-", buffer_name, "shape:", buffer_tensor.shape, "| dtype:", buffer_tensor.dtype)
 
 
 class DDIMSampler(object):
