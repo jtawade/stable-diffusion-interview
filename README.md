@@ -35,7 +35,7 @@ Run the sampling script until you hit the breakpoint, which is where you will be
 If you have access to a GPU run the following command:
 
 ```bash
-python3 -m scripts.txt2img \
+python -m scripts.txt2img \
   --prompt "a professional photograph of an astronaut riding a horse" \
   --ckpt v2-1_512-ema-pruned.ckpt --config configs/stable-diffusion/v2-inference.yaml \
   --H 512 --W 512 --n_samples 1 --n_iter 1 --device cuda
@@ -44,7 +44,7 @@ python3 -m scripts.txt2img \
 Otherwise, run this command:
 
 ```bash
-python3 -m scripts.txt2img \
+python -m scripts.txt2img \
   --prompt "a professional photograph of an astronaut riding a horse" \
   --ckpt v2-1_512-ema-pruned.ckpt --config configs/stable-diffusion/v2-inference-cpu.yaml \
   --H 512 --W 512 --n_samples 1 --n_iter 1 --precision full

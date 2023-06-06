@@ -8,10 +8,13 @@ from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, mak
 
 
 def print_buffer_info(module):
+    from tabulate import tabulate
+    table = []
     print("Here are some of the buffers that you might find helpful:")
     for buffer_name, buffer_tensor in vars(module).items():
         if isinstance(buffer_tensor, torch.Tensor):
-            print("-", buffer_name, "shape:", buffer_tensor.shape, "| dtype:", buffer_tensor.dtype)
+            table.append((buffer_name, tuple(buffer_tensor.shape), buffer_tensor.dtype))
+    print(tabulate(table, headers=["Name", "Shape", "Dtype"]))
 
 
 class DDIMSampler(object):
@@ -224,14 +227,20 @@ class DDIMSampler(object):
 
         ### TODO: BEGIN YOUR CODE ###
 
-        # Some helpful input shapes and dtypes
+        # Here are the inputs that you may find helpful
+        # x     : the current sample at this time in the denoising process
+        # t     : the current timestamp value in [0, 1) that dictates the signal-to-noise ratio
+        # index : the current timestamp index that `t` corresponds to (i.e. t := t_schedule[index])
+
+        # Here is some helpful information about the inputs
         # x ( torch.FloatTensor ) : shape=(b, c, h, w)
-        # t ( torch.LongTensor )  : shape=(b,)
+        # t ( torch.FloatTensor ) : shape=(b,)
+        # index ( int )           : shape=(,)
 
         # This will print the shapes of some buffers that correspond to variables
         # in the noise schedule, which may be helpful to your implementation
         print_buffer_info(self)  # comment this out when you're done
-        breakpoint()
+        breakpoint()  # tip: develop/debug inside breakpoint to avoid long script startup times !!!
 
         ### END OF YOUR CODE ###
 
