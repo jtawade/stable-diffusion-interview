@@ -21,7 +21,7 @@ python -m pip install -r requirements.txt
 ``` 
 
 ## Interview
-You will be implementing a single step of the DDIM denoising process. Refer to [this blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/#speed-up-diffusion-model-sampling) for the mathematical derivation of the proof. Specifically, you will be implementing part of the `p_sample_ddim` function inside `ldm/mdoels/diffusion/ddim.py`
+You will be implementing a single step of the DDIM denoising process. Refer to [this blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/#speed-up-diffusion-model-sampling) for the mathematical derivation of the proof. Specifically, you will be implementing part of the `p_sample_ddim` function inside `ldm/models/diffusion/ddim.py`
 
 ### Setup
 First download the checkpoint
@@ -31,10 +31,21 @@ wget https://huggingface.co/stabilityai/stable-diffusion-2-1-base/resolve/main/v
 > If this takes too long, then don't use the `--ckpt` flag in the command below and comment out lines 30-41 in `scripts/txt2img.py`
 
 Run the sampling script until you hit the breakpoint, which is where you will begin your implementation. The script will download some extra models the first time you run it.
+
+If you have access to a GPU run the following command:
+
 ```bash
-python -m scripts.txt2img \
+python3 -m scripts.txt2img \
   --prompt "a professional photograph of an astronaut riding a horse" \
-  --config configs/stable-diffusion/v2-inference.yaml \
-  --H 512 --W 512 --device cpu \
-  --ckpt v2-1_512-ema-pruned.ckpt
+  --ckpt v2-1_512-ema-pruned.ckpt --config configs/stable-diffusion/v2-inference.yaml \
+  --H 512 --W 512 --n_samples 1 --n_iter 1 --device cuda
+```
+
+Otherwise, run this command:
+
+```bash
+python3 -m scripts.txt2img \
+  --prompt "a professional photograph of an astronaut riding a horse" \
+  --ckpt v2-1_512-ema-pruned.ckpt --config configs/stable-diffusion/v2-inference-cpu.yaml \
+  --H 512 --W 512 --n_samples 1 --n_iter 1 --precision full
 ```
