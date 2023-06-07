@@ -26,12 +26,14 @@ def chunk(it, size):
 
 
 def load_model_from_config(config, ckpt, device=torch.device("cuda"), verbose=False):
-    model = instantiate_from_config(config.model)
+    model = instantiate_from_config(config.model).to(device)
+    del model.first_stage_model.encoder
     print(f"Loading model from {ckpt}")
-    pl_sd = torch.load(ckpt, map_location="cpu")
+    pl_sd = torch.load(ckpt, map_location=device)
     if "global_step" in pl_sd:
         print(f"Global Step: {pl_sd['global_step']}")
-    sd = pl_sd["state_dict"]
+    sd = pl_sd.pop("state_dict")
+    del pl_sd
     m, u = model.load_state_dict(sd, strict=False)
     if len(m) > 0 and verbose:
         print("missing keys:")

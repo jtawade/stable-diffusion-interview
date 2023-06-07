@@ -227,22 +227,19 @@ class DDIMSampler(object):
 
         ### TODO: BEGIN YOUR CODE ###
 
-        # Here are the inputs that you may find helpful
-        # x             : the current sample at this time in the denoising process
-        # t             : the current timestamp value in [0, 1) that dictates the signal-to-noise ratio
-        # index         : the current timestamp index that `t` corresponds to (i.e. t := t_schedule[index])
-        # model_output  : the predicted noise outputted by the diffusion model UNet 
+        # You need to compute the following variables:
+        # pred_x0 : the current estimate of the initial denoised image (x_0 reparameterized)
+        # x_prev  : the output of this single denoising step (x_{t-1})
 
-        # Here is some helpful information about the inputs
-        # x ( torch.FloatTensor )               : shape=(b, c, h, w)
-        # t ( torch.FloatTensor )               : shape=(b,)
-        # index ( int )                         : shape=(,)
-        # model_output ( torch.FloatTensor )    : shape=(b, c, h, w)
+        # Here are the inputs that you may find helpful
+        # x     : the current sample at this time in the denoising process (x_t)
+        # t     : the current timestamp value in [0, 1) that dictates the signal-to-noise ratio
+        # index : the current timestamp index that `t` corresponds to (i.e. t := t_schedule[index])
 
         # This will print the shapes of some buffers that correspond to variables
         # in the noise schedule, which may be helpful to your implementation
         print_buffer_info(self)  # comment this out when you're done
-        breakpoint()  # tip: develop/debug inside breakpoint to avoid long script startup times !!!
+        import pdb; pdb.set_trace()  # tip: develop/debug inside breakpoint to avoid long script startup times !!!
 
         ### END OF YOUR CODE ###
 
