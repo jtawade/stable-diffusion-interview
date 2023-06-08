@@ -21,7 +21,7 @@ python -m pip install -r requirements.txt
 ``` 
 
 ## Interview
-You will be implementing a single step of the DDIM denoising process. Refer to [this blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/#speed-up-diffusion-model-sampling) for the mathematical derivation of the proof. Specifically, you will be implementing part of the `p_sample_ddim` function inside `ldm/models/diffusion/ddim.py`
+You will be implementing a single step of the DDIM denoising process. Refer to [this blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models) for the mathematical derivation of the proof. Specifically, you will be implementing part of the `p_sample_ddim` function inside `ldm/models/diffusion/ddim.py`
 
 ### Setup
 First download the checkpoint

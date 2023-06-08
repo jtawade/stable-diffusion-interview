@@ -7,16 +7,6 @@ from tqdm import tqdm
 from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, make_ddim_timesteps, noise_like, extract_into_tensor
 
 
-def print_buffer_info(module):
-    from tabulate import tabulate
-    table = []
-    print("Here are some of the buffers that you might find helpful:")
-    for buffer_name, buffer_tensor in vars(module).items():
-        if isinstance(buffer_tensor, torch.Tensor):
-            table.append((buffer_name, tuple(buffer_tensor.shape), buffer_tensor.dtype))
-    print(tabulate(table, headers=["Name", "Shape", "Dtype"]))
-
-
 class DDIMSampler(object):
     def __init__(self, model, schedule="linear", device=torch.device("cuda"), **kwargs):
         super().__init__()
@@ -229,6 +219,7 @@ class DDIMSampler(object):
 
         # You need to compute the following variables:
         # pred_x0 : the current estimate of the initial denoised image (x_0 reparameterized)
+        #           you may find this helpful https://lilianweng.github.io/posts/2021-07-11-diffusion-models/#nice
         # x_prev  : the output of this single denoising step (x_{t-1})
 
         # Here are the inputs that you may find helpful
@@ -236,9 +227,15 @@ class DDIMSampler(object):
         # t     : the current timestamp value in [0, 1) that dictates the signal-to-noise ratio
         # index : the current timestamp index that `t` corresponds to (i.e. t := t_schedule[index])
 
-        # This will print the shapes of some buffers that correspond to variables
-        # in the noise schedule, which may be helpful to your implementation
-        print_buffer_info(self)  # comment this out when you're done
+        # Here are some of the buffers that you might find helpful:
+        # Name                                Shape    Dtype
+        # ----------------------------------  -------  -------------
+        # ddim_sigmas                         (50,)    torch.float64
+        # ddim_alphas                         (50,)    torch.float32
+        # ddim_alphas_prev                    (50,)    torch.float32
+        # ddim_sqrt_one_minus_alphas          (50,)    torch.float32
+        # ddim_sigmas_for_original_num_steps  (1000,)  torch.float32
+
         import pdb; pdb.set_trace()  # tip: develop/debug inside breakpoint to avoid long script startup times !!!
 
         ### END OF YOUR CODE ###
