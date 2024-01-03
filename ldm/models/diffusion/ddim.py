@@ -232,7 +232,7 @@ class DDIMSampler(object):
         # ----------------------------------  -------  -------------
         # ddim_sigmas                         (50,)    torch.float64
         # ddim_alphas                         (50,)    torch.float32
-        # ddim_alphas_prev                    (50,)    torch.float32
+        # ddim_alphas_prev                    (50,)       np.float64
         # ddim_sqrt_one_minus_alphas          (50,)    torch.float32
         # ddim_sigmas_for_original_num_steps  (1000,)  torch.float32
 
